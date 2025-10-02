@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      text-align: center;
+      padding: 50px;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    h1 {
+      color: #333;
+    }
+    p {
+      color: #666;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      background: crimson;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: darkred;
+    }
+  </style>
+</head>
+<body>
+    <div class="card">
+    <h1 id="welcome">Bem-vindo!</h1>
+    <p id="userEmail"></p>
+    <button id="logout">Sair</button>
+    </div>
+
+  <script>
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+    const lastUser = users[users.length - 1];
+
+    if (lastUser) {
+      document.getElementById("welcome").textContent = `Bem-vindo, ${lastUser.email}!`;
+      document.getElementById("userEmail").textContent = `Seu e-mail cadastrado é: ${lastUser.email}`;
+    } else {
+      document.getElementById("welcome").textContent = "Nenhum usuário encontrado.";
+    }
+
+    document.getElementById("logout")?.addEventListener("click", () => {
+      localStorage.removeItem("users"); 
+      window.location.href = "index.html"; 
+    });
+  </script>
+</body>
+</html>
