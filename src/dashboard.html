@@ -1,66 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
+    <head>
   <meta charset="UTF-8">
-  <title>Dashboard</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      text-align: center;
-      padding: 50px;
-    }
-    .card {
-      background: #fff;
-      padding: 20px;
-      margin: auto;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      width: 300px;
-    }
-    h1 {
-      color: #333;
-    }
-    p {
-      color: #666;
-    }
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: none;
-      background: crimson;
-      color: #fff;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: darkred;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciador de Tarefas</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="card">
-    <h1 id="welcome">Bem-vindo!</h1>
-    <p id="userEmail"></p>
-    <button id="logout">Sair</button>
+  <div class="container">
+    <h1>Gerenciador de Tarefas</h1>
+
+    <div class="task-input">
+      <input type="text" id="taskInput" placeholder="Digite uma tarefa...">
+      <label>
+        <input type="checkbox" id="priorityInput"> Prioridade
+      </label>
+      <button id="addTaskBtn">Adicionar</button>
     </div>
 
-  <script>
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    <div class="filters">
+      <button data-filter="all" class="active">Todas</button>
+      <button data-filter="priority">Prioridade</button>
+      <button data-filter="completed">Concluídas</button>
+    </div>
 
-    const lastUser = users[users.length - 1];
+    <ul id="taskList"></ul>
+  </div>
 
-    if (lastUser) {
-      document.getElementById("welcome").textContent = `Bem-vindo, ${lastUser.email}!`;
-      document.getElementById("userEmail").textContent = `Seu e-mail cadastrado é: ${lastUser.email}`;
-    } else {
-      document.getElementById("welcome").textContent = "Nenhum usuário encontrado.";
-    }
-
-    document.getElementById("logout")?.addEventListener("click", () => {
-      localStorage.removeItem("users"); 
-      window.location.href = "index.html"; 
-    });
-  </script>
+  <script src="../dist/app.js"></script>
 </body>
 </html>

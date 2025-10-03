@@ -1,5 +1,5 @@
 "use strict";
-class User {
+class User_ {
     constructor(email, senha) {
         this.email = email;
         this.senha = senha;
@@ -9,7 +9,7 @@ const emailInput = document.querySelector("input#email");
 const senhaInput = document.querySelector("input#senha");
 const button = document.querySelector("button#button");
 const res = document.querySelector("div#res");
-button === null || button === void 0 ? void 0 : button.addEventListener('click', (event) => {
+button?.addEventListener('click', (event) => {
     if (!emailInput || !senhaInput || !res)
         return;
     const email = emailInput.value.trim();

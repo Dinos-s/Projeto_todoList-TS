@@ -1,5 +1,5 @@
 
-class Task {
+class Task_ {
   id: number;
   description: string;
   priority: boolean;
@@ -17,7 +17,7 @@ class Task {
   }
 }
 
-class TaskManager {
+class TaskManager_ {
   tasks: Task[] = [];
   taskListEl: HTMLElement;
 
@@ -67,7 +67,7 @@ class TaskManager {
   }
 }
 
-const app = new TaskManager("taskList");
+const app = new TaskManager_("taskList");
 
 document.getElementById("addTaskBtn")!.addEventListener("click", () => {
   const input = document.getElementById("taskInput") as HTMLInputElement;

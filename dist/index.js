@@ -1,5 +1,5 @@
 "use strict";
-class Task {
+class Task_ {
     constructor(id, description, priority) {
         this.id = id;
         this.description = description;
@@ -10,7 +10,7 @@ class Task {
         this.completed = !this.completed;
     }
 }
-class TaskManager {
+class TaskManager_ {
     constructor(taskListId) {
         this.tasks = [];
         this.taskListEl = document.getElementById(taskListId);
@@ -21,19 +21,19 @@ class TaskManager {
         this.renderTasks();
     }
     removeTask(id) {
-        this.tasks = this.tasks.filter(t => t.id != id);
+        this.tasks = this.tasks.filter(t => t.id !== id);
         this.renderTasks();
     }
     toggleTaskCompletion(id) {
-        const task = this.tasks.find(t => t.id == id);
+        const task = this.tasks.find(t => t.id === id);
         if (task)
             task.toggleComplete();
         this.renderTasks();
     }
     filterTasks(filter) {
-        if (filter == "priority")
+        if (filter === "priority")
             return this.tasks.filter(t => t.priority && !t.completed);
-        if (filter == "completed")
+        if (filter === "completed")
             return this.tasks.filter(t => t.completed);
         return this.tasks;
     }
@@ -54,7 +54,7 @@ class TaskManager {
         });
     }
 }
-const app = new TaskManager("taskList");
+const app = new TaskManager_("taskList");
 document.getElementById("addTaskBtn").addEventListener("click", () => {
     const input = document.getElementById("taskInput");
     const priority = document.getElementById("priorityInput").checked;
