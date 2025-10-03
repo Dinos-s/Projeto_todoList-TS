@@ -76,7 +76,8 @@
             }
 
             logoutBtn?.addEventListener("click", () => {
-                // NÃO REMOVE NENHUM USUARIO DO LOCALSTORAGE
+                // Remove apenas o usuário logado
+                localStorage.removeItem("lastEmail");
                 window.location.href = "index.html";
             });
         });

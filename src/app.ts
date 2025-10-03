@@ -9,11 +9,17 @@ class User {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const emailInput = document.querySelector<HTMLInputElement>("input#email");
-    const senhaInput = document.querySelector<HTMLInputElement>("input#senha");
-    const loginBtn = document.querySelector<HTMLButtonElement>("button#loginBtn");
-    const registerBtn = document.querySelector<HTMLButtonElement>("button#registerBtn");
-    const res = document.querySelector<HTMLDivElement>("div#res");
+    const emailInput = document.querySelector<HTMLInputElement>("#email");
+    const senhaInput = document.querySelector<HTMLInputElement>("#senha");
+    const loginBtn = document.querySelector<HTMLButtonElement>("#loginBtn");
+    const registerBtn = document.querySelector<HTMLButtonElement>("#registerBtn");
+    const res = document.querySelector<HTMLDivElement>("#res");
+
+    if (!emailInput || !senhaInput || !loginBtn || !registerBtn || !res) return;
+
+    // Preenche o último e-mail logado, se houver
+    const lastEmail = localStorage.getItem("lastEmail");
+    if (lastEmail) emailInput.value = lastEmail;
 
     function getUsers(): User[] {
         return JSON.parse(localStorage.getItem("users") || "[]");
@@ -23,26 +29,25 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("users", JSON.stringify(users));
     }
 
+    function showMessage(message: string, color: "red" | "green") {
+        res.innerHTML = `<span style="color:${color}">${message}</span>`;
+    }
+
     function validateInputs(email: string, senha: string): boolean {
         const emailRegex = /^[^\s@]+@[^\s@]+\.com$/;
-
         if (!email || !senha) {
-            res!.innerHTML = `<span style="color:red">E-mail ou senha não podem estar vazios!</span>`;
+            showMessage("E-mail ou senha não podem estar vazios!", "red");
             return false;
         }
-
         if (!emailRegex.test(email)) {
-            res!.innerHTML = `<span style="color:red">Digite um e-mail válido terminando em .com!</span>`;
+            showMessage("Digite um e-mail válido terminando em .com!", "red");
             return false;
         }
-
         return true;
     }
 
     // LOGIN
-    loginBtn?.addEventListener("click", () => {
-        if (!emailInput || !senhaInput || !res) return;
-
+    loginBtn.addEventListener("click", () => {
         const email = emailInput.value.trim();
         const senha = senhaInput.value.trim();
 
@@ -52,11 +57,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const user = users.find(u => u.email === email);
 
         if (!user) {
-            res.innerHTML = `<span style="color:red">E-mail não cadastrado. Por favor, cadastre-se primeiro!</span>`;
+            showMessage("E-mail não cadastrado. Por favor, cadastre-se primeiro!", "red");
         } else if (user.senha !== senha) {
-            res.innerHTML = `<span style="color:red">Senha incorreta para o e-mail informado!</span>`;
+            showMessage("Senha incorreta para o e-mail informado!", "red");
         } else {
-            res.innerHTML = `<span style="color:green">Login realizado com sucesso! Redirecionando...</span>`;
+            // Salva o usuário logado
+            localStorage.setItem("lastEmail", user.email);
+
+            showMessage("Login realizado com sucesso! Redirecionando...", "green");
             setTimeout(() => {
                 window.location.href = "dashboard.html";
             }, 1000);
@@ -64,9 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // CADASTRO
-    registerBtn?.addEventListener("click", () => {
-        if (!emailInput || !senhaInput || !res) return;
-
+    registerBtn.addEventListener("click", () => {
         const email = emailInput.value.trim();
         const senha = senhaInput.value.trim();
 
@@ -76,12 +82,19 @@ document.addEventListener("DOMContentLoaded", () => {
         const userExists = users.some(u => u.email === email);
 
         if (userExists) {
-            res.innerHTML = `<span style="color:red">E-mail já cadastrado! Faça login.</span>`;
+            showMessage("E-mail já cadastrado! Faça login.", "red");
         } else {
             const newUser = new User(email, senha);
             users.push(newUser);
             saveUsers(users);
-            res.innerHTML = `<span style="color:green">Usuário cadastrado com sucesso! Agora faça login.</span>`;
+
+            // Salva o usuário logado
+            localStorage.setItem("lastEmail", newUser.email);
+
+            showMessage("Usuário cadastrado com sucesso! Redirecionando...", "green");
+            setTimeout(() => {
+                window.location.href = "dashboard.html";
+            }, 1000);
         }
     });
-})
+});
