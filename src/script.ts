@@ -137,23 +137,23 @@ function LoginPage() {
         // se o usuário existir, verifica a senha
         if (existingUser) {
             if (existingUser.senha === senha) {
+                localStorage.setItem("currentUser", JSON.stringify(existingUser)); // 👈 ADICIONAR ESTA LINHA
                 res.innerHTML = `<span style="color:green">Login realizado com sucesso! Redirecionando...</span>`;
                 setTimeout(() => {
                     window.location.href = "dashboard.html";
                 }, 1000);
-            } else {
+            }
+            else {
                 res.innerHTML = `<span style="color:red">Senha incorreta para o e-mail informado!</span>`;
             }
         } else {
-            // se o usuário não existir, cria um novo e salva no localStorage
             const newUser = new User(email, senha);
             users.push(newUser);
             localStorage.setItem("users", JSON.stringify(users));
-
+            localStorage.setItem("currentUser", JSON.stringify(newUser)); // 👈 ADICIONAR ESTA LINHA
             res.innerHTML = `<span style="color:green">Usuário ${newUser.email} cadastrado com sucesso! Redirecionando...</span>`;
-
             setTimeout(() => {
-                window.location.href = "dashboard.html";
+                window.location.href = "../src/dashboard.html";
             }, 1000);
         }
     })
