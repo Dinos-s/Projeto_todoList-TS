@@ -1,5 +1,4 @@
 "use strict";
-// app.ts
 class User {
     constructor(email, senha) {
         this.email = email;
@@ -8,18 +7,15 @@ class User {
     }
 }
 const COLORS = { success: "green", error: "red" };
-// ARMAZENAMENTO DE USUÁRIOS
 function getAppUsers() {
     return JSON.parse(localStorage.getItem("users") || "[]");
 }
 function saveAppUsers(users) {
     localStorage.setItem("users", JSON.stringify(users));
 }
-// FEEDBACK
 function showMessage(resEl, message, color) {
     resEl.innerHTML = `<span style="color:${color}">${message}</span>`;
 }
-// VALIDAÇÃO
 function validateInputs(email, senha, resEl) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.com$/;
     if (!email || !senha) {
@@ -32,7 +28,6 @@ function validateInputs(email, senha, resEl) {
     }
     return true;
 }
-// DOM
 document.addEventListener("DOMContentLoaded", () => {
     const emailInput = document.querySelector("#email");
     const senhaInput = document.querySelector("#senha");

@@ -1,5 +1,3 @@
-// app.ts
-
 class User {
     email: string;
     senha: string;
@@ -21,7 +19,6 @@ interface Todo {
 
 const COLORS = { success: "green" as const, error: "red" as const };
 
-// ARMAZENAMENTO DE USUÁRIOS
 function getAppUsers(): User[] {
     return JSON.parse(localStorage.getItem("users") || "[]");
 }
@@ -30,12 +27,10 @@ function saveAppUsers(users: User[]): void {
     localStorage.setItem("users", JSON.stringify(users));
 }
 
-// FEEDBACK
 function showMessage(resEl: HTMLDivElement, message: string, color: "red" | "green") {
     resEl.innerHTML = `<span style="color:${color}">${message}</span>`;
 }
 
-// VALIDAÇÃO
 function validateInputs(email: string, senha: string, resEl: HTMLDivElement) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.com$/;
     if (!email || !senha) {
@@ -49,7 +44,6 @@ function validateInputs(email: string, senha: string, resEl: HTMLDivElement) {
     return true;
 }
 
-// DOM
 document.addEventListener("DOMContentLoaded", () => {
     const emailInput = document.querySelector<HTMLInputElement>("#email");
     const senhaInput = document.querySelector<HTMLInputElement>("#senha");
