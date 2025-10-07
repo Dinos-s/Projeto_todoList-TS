@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!emailInput || !senhaInput || !loginBtn || !registerBtn || !res) return;
 
-    // Preenche o último e-mail logado, se houver
     const lastEmail = localStorage.getItem("lastEmail");
     if (lastEmail) emailInput.value = lastEmail;
 
