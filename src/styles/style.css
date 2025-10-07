@@ -12,21 +12,23 @@
 
 body {
     background-image: url("/src/assets/images/stacked-waves-haikei.svg");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    background-attachment: scroll;
     font-family: var(--fonte);
     font-weight: 700;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
+    min-height: 100vh; 
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
 }
 
 div#main {
     background-color: white;
     max-width: 750px;
-    width: 90%;
+    width: 100%;
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -37,10 +39,13 @@ div#main {
 
 img#logo {
     width: 500px;
-    margin: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
 }
 
-div#main input, div#main button {
+div#main input,
+div#main button {
     width: 100%;
     padding: 0.75rem 1rem;
     font-size: 1rem;
@@ -64,4 +69,53 @@ div#main button {
 
 div#main button:hover {
     background-color: #0061f1;
+}
+
+@media (max-width: 768px) {
+    body {
+        background-size: cover; 
+        background-position: center top;
+        background-attachment: scroll;
+        min-height: 100vh;
+        padding: 1rem;
+    }
+
+    div#main {
+        padding: 1.5rem;
+        gap: 0.75rem;
+    }
+
+    img#logo {
+        width: 80%;
+    }
+
+    div#main input, div#main button {
+        font-size: 0.95rem;
+        padding: 0.65rem 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        background-size: cover;
+        background-position: center top;
+    }
+
+    div#main {
+        padding: 1rem;
+    }
+
+    img#logo {
+        width: 70%;
+    }
+
+    div#main input,
+    div#main button {
+        font-size: 0.9rem;
+        padding: 0.6rem 0.8rem;
+    }
+
+    button {
+        font-weight: 600;
+    }
 }

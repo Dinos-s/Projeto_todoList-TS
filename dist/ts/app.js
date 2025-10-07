@@ -17,7 +17,7 @@ function showMessage(resEl, message, color) {
     resEl.innerHTML = `<span style="color:${color}">${message}</span>`;
 }
 function validateInputs(email, senha, resEl) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.com$/;
+    const emailRegex = /^[a-zA-Z0-9](?:[a-zA-Z0-9._%+-]{0,62}[a-zA-Z0-9])?@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,}$/;
     if (!email || !senha) {
         showMessage(resEl, "E-mail ou senha não podem estar vazios!", COLORS.error);
         return false;

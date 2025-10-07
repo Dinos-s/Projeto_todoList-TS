@@ -83,9 +83,9 @@ document.addEventListener("DOMContentLoaded", () => {
         todoTitleInput.value = "";
         todoPrioritySelect.value = "media";
     });
-    todoTitleInput.oninvalid = (e) => {
-        e.preventDefault();
-        alert("Por favor, preencha o campo da tarefa!");
-    };
+    //    todoTitleInput.oninvalid = (e) => {
+    //        e.preventDefault();
+    //       alert("Por favor, preencha o campo da tarefa!");
+    //    };
     renderTodos();
 });
