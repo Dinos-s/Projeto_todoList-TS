@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showMessage(message: string, color: "red" | "green") {
-        res.innerHTML = `<span style="color:${color}">${message}</span>`;
+        res!.innerHTML = `<span style="color:${color}">${message}</span>`;
     }
 
     function validateInputs(email: string, senha: string): boolean {
