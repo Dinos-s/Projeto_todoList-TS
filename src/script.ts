@@ -90,15 +90,33 @@ class TaskManager {
     renderTasks(filter: string = "all") {
         this.taskListEl.innerHTML = "";
         const filtered = this.filterTasks(filter);
+
         filtered.forEach(task => {
-            const taskEl = document.createElement("div");
-            taskEl.className = "task";
+            const taskEl = document.createElement("li");
+            taskEl.className = `task ${task.priority ? "priority" : ""} ${task.completed ? "completed" : ""}`;
             taskEl.innerHTML = `
-                <input type="checkbox" ${task.completed ? "checked" : ""} data-id="${task.id}">
                 <span>${task.description}</span>
-                <button class="remove" data-id="${task.id}">Remove</button>
+                <div>
+                    <button onclick="app.toggleTaskCompletion(${task.id})">✔</button>
+                    <button onclick="app.removeTask(${task.id})">✖</button>
+                </div>
             `;
             this.taskListEl.appendChild(taskEl);
+        });
+
+        // Add do evento de clique no botão
+        this.taskListEl.querySelectorAll(".complete").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const id = Number((e.target as HTMLElement).getAttribute("data-id"));
+                this.toggleTaskCompletion(id);
+            });
+        });
+
+        this.taskListEl.querySelectorAll(".remove").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const id = Number((e.target as HTMLElement).getAttribute("data-id"));
+                this.removeTask(id);
+            });
         });
     }
 }
